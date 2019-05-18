@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'menu.dart';
 import 'start.dart';
+import 'profile.dart';
 
-
-class EyesEars extends StatelessWidget {
+class AppPage extends StatelessWidget {
   final appName = 'Eyes2Ears';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MallApp',
+      title: appName,
       home: MenuPage(),
-      initialRoute: '/login',
+      initialRoute: '/start',
       routes:{
-        '/start': (context) => StartPage(),
+        '/start': (context) => StartPage(name: appName),
         '/login': (context) => LoginPage(),
+        '/profile': (context) => ProfilePage(),
         //'/music' : (context) => MusicPage(),
+        //'/speech': (context) => SpeechTextPage(),
       },
       onGenerateRoute: _getRoute,
     );
