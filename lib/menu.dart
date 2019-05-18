@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 import 'auth.dart';
 
 class MenuPage extends StatefulWidget{
@@ -35,36 +34,33 @@ class _MenuPageState extends State<MenuPage> {
           ),
         ],
       ),
-      body: 
-              Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: 
-                            Firestore.instance.collection('menulist').documents().snapshots(),
-                  builder: (context, snapshot){
-                    if(!snapshot.hasData){
-                      return null;
-                    }
-                    List<Product> products = snapshot.data.documents.map((product) => Product.fromSnapshot(product)).toList();
-                    return GridView.count(
-                      crossAxisCount: 2,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(16.0),
-                      childAspectRatio: 8.0 / 9.0,
-                      children: _buildGridCards(context, products),
-                    );
-                  },
-                ),
-              ),
-            ],
-        ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance.collection('menulist').snapshots(),
+              builder: (context, snapshot){
+                if(!snapshot.hasData){
+                  return LinearProgressIndicator();
+                }
+                List<Product> products = snapshot.data.documents.map((product) => Product.fromSnapshot(product)).toList();
+                return GridView.count(
+                  crossAxisCount: 1,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.all(16.0),
+                  childAspectRatio: 8.0 / 9.0,
+                  children: _buildGridCards(context, products),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   List<Card> _buildGridCards(BuildContext context, List<Product> products){
-    final NumberFormat formatter = NumberFormat.simpleCurrency(
-      locale: Localizations.localeOf(context).toString()
-    );
-    
     if (products == null || products.isEmpty){ // In case the list of products is empty
       return const <Card>[];
     }
@@ -78,7 +74,7 @@ class _MenuPageState extends State<MenuPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            AspectRatio(
+/*             AspectRatio(
               aspectRatio: 18 / 12,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -87,7 +83,7 @@ class _MenuPageState extends State<MenuPage> {
                   fit: BoxFit.fitWidth,
                 ),
               ),
-            ),
+            ), */
             Padding(
               padding: EdgeInsets.fromLTRB(30.0, 5.0, 16.0, 0.0),
               child: Column(
@@ -105,43 +101,6 @@ class _MenuPageState extends State<MenuPage> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25.0, 8.0, 0.0, 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.only(left:8.0)),
-                  Flexible(
-                    child:Text(
-                      product == null ? '' : formatter.format(product.price).toString(),
-                      style: TextStyle(fontSize:10.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end, 
-              children: [
-                SizedBox(
-                  width: 60.0,
-                  height: 20.0,
-                  child: FlatButton(
-                      child: Text('more',
-                        style: TextStyle(
-                          fontFamily:'Rubik',
-                          fontSize: 10.0,
-                          color: Colors.blue[400],
-                        ),
-                      ),
-                      onPressed: () async{ 
-                        AuthService.currentSnapshot = await Firestore.instance.collection('products').document(product.docID).get();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: product)));
-                       } // Product's index
-                    ),
-                  ),
-              ],
-            ),
           ],
         ),
       );
@@ -151,43 +110,43 @@ class _MenuPageState extends State<MenuPage> {
 
 class Product{
   final String name;
-  final String category;
+/*   final String category;
   final String description;
   final String imgurl;
   final int likes;
   final double price;
   final String uid;
   final DateTime created;
-  final DateTime modified;
+  final DateTime modified; */
   final String docID;
   final DocumentReference reference;
 
   Product.fromMap(Map<String, dynamic> map, String documentID, {this.reference})
     : assert(map['name'] != null),
-      assert(map['category'] != null),
+/*       assert(map['category'] != null),
       assert(map['description'] != null),
       assert(map['imgurl'] != null),
       assert(map['likes'] != null),
       assert(map['price'] != null),
       assert(map['uid'] != null),
       assert(map['created'] != null),
-      assert(map['modified'] != null),
+      assert(map['modified'] != null), */
       name = map['name'],
-      category = map['category'],
+/*       category = map['category'],
       description = map['description'],
       imgurl = map['imgurl'],
       likes = map['likes'],
       price = map['price'].toDouble(),
       uid = map['uid'],
       created = map['created'],
-      modified = map['modified'],
+      modified = map['modified'], */
       docID = documentID;
 
   Product.fromSnapshot(DocumentSnapshot snapshot)
     : this.fromMap(snapshot.data, snapshot.documentID, reference: snapshot.reference);
 
   @override
-  String toString() => "<Product name: $name - Category: $category - Price: $price>";
+  String toString() => "<Product name: $name>";
 
 }
 
@@ -205,5 +164,3 @@ Widget buildStar(BuildContext context, int numstars, bool detail){ // Generate r
     ),
   );
 }
-
-  

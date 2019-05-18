@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "91323046510",
+    "firebase_url": "https://eyes2ears-fff07.firebaseio.com",
+    "project_id": "eyes2ears-fff07",
+    "storage_bucket": "eyes2ears-fff07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91323046510:android:d6d66793c904adcb",
+        "android_client_info": {
+          "package_name": "com.example.eyes_ears"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91323046510-g25avfs43jvljlt8b4hfd9tq37ut3omo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ_uibLCgQFgGxtW_ljtL6O9PdlC94IJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91323046510-g25avfs43jvljlt8b4hfd9tq37ut3omo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
