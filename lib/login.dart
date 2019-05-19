@@ -131,8 +131,8 @@ class _LoginPageState extends State<LoginPage> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.purple,
-                            Colors.purpleAccent,
+                            Color(0xFF1b1e44),
+                            Color(0xFF2d3447),
                           ],
                         ),
                         borderRadius: BorderRadius.only(
@@ -240,8 +240,8 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      Colors.purple,
-                                      Colors.purpleAccent,
+                                      Color(0xFF1b1e44),
+                                      Color(0xFF2d3447),
                                     ],
                                   ),
                                   boxShadow: [
