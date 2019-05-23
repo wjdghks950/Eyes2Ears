@@ -36,7 +36,7 @@ class _ProfileState extends State<ProfilePage>{
             onPressed: (){
               _signout();
               print(AuthService.user.toString() + ' signed out successfully');
-              Navigator.of(context).pushNamedAndRemoveUntil('/mallmain', (Route<dynamic> route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil('/start', (Route<dynamic> route) => false);
             },
           ),
         ]

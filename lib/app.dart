@@ -3,6 +3,9 @@ import 'login.dart';
 import 'menu.dart';
 import 'start.dart';
 import 'profile.dart';
+import 'speech2.dart';
+import 'menuList.dart';
+import 'detail.dart';
 
 class AppPage extends StatelessWidget {
   final appName = 'Eyes2Ears';
@@ -16,8 +19,10 @@ class AppPage extends StatelessWidget {
         '/start': (context) => StartPage(name: appName),
         '/login': (context) => LoginPage(),
         '/profile': (context) => ProfilePage(),
+        '/menu':(context) => MenuList(),
+        '/speech': (context) => SpeechPage(),
+        '/detail': (context) => DetailPage(),
         //'/music' : (context) => MusicPage(),
-        //'/speech': (context) => SpeechTextPage(),
       },
       onGenerateRoute: _getRoute,
     );
