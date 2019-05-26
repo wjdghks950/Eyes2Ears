@@ -121,168 +121,129 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: 500.0),
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height/2.5,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF1b1e44),
-                            Color(0xFF2d3447),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(90)
-                        )
+                    Material(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50)
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Icon(Icons.person,
-                              size: 90,
-                              color: Colors.white,
-                            ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50)
+                        ),
+                        onTap: (){
+                          print("Google sign-in!");
+                          _handleGoogleSignIn().then((FirebaseUser user) => print(user)).catchError((e) => print(e)); //Pop up google sign in
+                        },
+                        child: 
+                        Container(
+                          width: MediaQuery.of(context).size.width/1.2,
+                          height: 100,
+                          //margin: EdgeInsets.only(top: 32),
+                          padding: EdgeInsets.only(
+                              top: 4,left: 16, right: 16, bottom: 4
                           ),
-                          Spacer(),
-                        ],
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.purple,
+                                Colors.purpleAccent,
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 4.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50)
+                            )
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:[ 
+                              Image.asset(
+                                "assets/google-logo.png",
+                                scale: 5.0,  
+                              ),
+                              SizedBox(width: 20.0),
+                              Center(
+                                child: Text('Google Sign-in',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0,
+                                    fontFamily: "Calibre-Semibold",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-
-                    Container(
-                      height: MediaQuery.of(context).size.height/2,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(top: 62),
-                      child: Column(
-                        children: <Widget>[
-                          Material(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50)
-                              ),
-                              onTap: (){
-                                print("Google sign-in!");
-                                _handleGoogleSignIn().then((FirebaseUser user) => print(user)).catchError((e) => print(e)); //Pop up google sign in
-                              },
-                              child: 
-                              Container(
-                                width: MediaQuery.of(context).size.width/1.2,
-                                height: 100,
-                                //margin: EdgeInsets.only(top: 32),
-                                padding: EdgeInsets.only(
-                                    top: 4,left: 16, right: 16, bottom: 4
-                                ),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.purple,
-                                      Colors.purpleAccent,
-                                    ],
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 4.0,
-                                    ),
-                                  ],
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50)
-                                  )
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:[ 
-                                    Image.asset(
-                                      "assets/google-logo.png",
-                                      scale: 5.0,  
-                                    ),
-                                    SizedBox(width: 20.0),
-                                    Center(
-                                      child: Text('Google Sign-in',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30.0,
-                                          fontFamily: "Calibre-Semibold",
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 30.0),
-                          Material(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50)
-                            ),
-                            child: InkWell(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50)
-                              ),                    
-                              onTap: (){
-                                print("Login!");
-                                _handleAnonymous().then((FirebaseUser user) => print(user)).catchError((e) => print(e));
-                              },
-                              child: Container(
-                                height: 100,
-                                width: MediaQuery.of(context).size.width/1.2,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFF1b1e44),
-                                      Color(0xFF2d3447),
-                                    ],
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 4.0,
-                                    ),
-                                  ],
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50)
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:[ 
-                                    Icon(Icons.person,
-                                      size: 50,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 20.0),
-                                    Center(
-                                      child: Text('Login'.toUpperCase(),
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30.0,
-                                          fontFamily: "Calibre-Semibold",
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                    SizedBox(height: 30.0),
+                    Material(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50)
                       ),
-                    )
+                      child: InkWell(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50)
+                        ),                    
+                        onTap: (){
+                          print("Login!");
+                          _handleAnonymous().then((FirebaseUser user) => print(user)).catchError((e) => print(e));
+                        },
+                        child: Container(
+                          height: 100,
+                          width: MediaQuery.of(context).size.width/1.2,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xFF1b1e44),
+                                Color(0xFF2d3447),
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 4.0,
+                              ),
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50)
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:[ 
+                              Icon(Icons.person,
+                                size: 50,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 20.0),
+                              Center(
+                                child: Text('Login'.toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0,
+                                    fontFamily: "Calibre-Semibold",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
+              )
         ],
       ),
     );
