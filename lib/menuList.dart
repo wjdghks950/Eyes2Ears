@@ -210,6 +210,7 @@ class _MenuListState extends State<MenuList> {
                                             Center(
                                               child: RaisedButton(
                                                 child: _buildButton(products[index].name, index),
+                                                splashColor: Color(0xFF5C6277),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(40.0),
                                                 ),
