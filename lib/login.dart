@@ -127,11 +127,11 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Material(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(50)
+                        Radius.circular(20)
                       ),
                       child: InkWell(
                         borderRadius: BorderRadius.all(
-                          Radius.circular(50)
+                          Radius.circular(20)
                         ),
                         onTap: (){
                           print("Google sign-in!");
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(
-                              Radius.circular(50)
+                              Radius.circular(20)
                             )
                           ),
                           child: Row(
@@ -215,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(
-                              Radius.circular(50)
+                              Radius.circular(20)
                             ),
                           ),
                           child: Row(
