@@ -1,7 +1,3 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:ui' as ui;
 
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -73,42 +69,42 @@ class FaceDetectorPainter extends CustomPainter {
   }
 }
 
-// class LabelDetectorPainter extends CustomPainter {
-//   LabelDetectorPainter(this.imageSize, this.labels);
+class LabelDetectorPainter extends CustomPainter {
+  LabelDetectorPainter(this.imageSize, this.labels);
 
-//   final Size imageSize;
-//   final List<Label> labels;
+  final Size imageSize;
+  final List<ImageLabel> labels;
 
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final ui.ParagraphBuilder builder = ui.ParagraphBuilder(
-//       ui.ParagraphStyle(
-//           textAlign: TextAlign.left,
-//           fontSize: 23.0,
-//           textDirection: TextDirection.ltr),
-//     );
+  @override
+  void paint(Canvas canvas, Size size) {
+    final ui.ParagraphBuilder builder = ui.ParagraphBuilder(
+      ui.ParagraphStyle(
+          textAlign: TextAlign.left,
+          fontSize: 23.0,
+          textDirection: TextDirection.ltr),
+    );
 
-//     builder.pushStyle(ui.TextStyle(color: Colors.green));
-//     for (Label label in labels) {
-//       builder.addText('Label: ${label.label}, '
-//           'Confidence: ${label.confidence.toStringAsFixed(2)}\n');
-//     }
-//     builder.pop();
+    builder.pushStyle(ui.TextStyle(color: Colors.green));
+    for (ImageLabel label in labels) {
+      builder.addText('Label: ${label.text}, '
+          'Confidence: ${label.confidence.toStringAsFixed(2)}\n');
+    }
+    builder.pop();
 
-//     canvas.drawParagraph(
-//       builder.build()
-//         ..layout(ui.ParagraphConstraints(
-//           width: size.width,
-//         )),
-//       const Offset(0.0, 0.0),
-//     );
-//   }
+    canvas.drawParagraph(
+      builder.build()
+        ..layout(ui.ParagraphConstraints(
+          width: size.width,
+        )),
+      const Offset(0.0, 0.0),
+    );
+  }
 
-//   @override
-//   bool shouldRepaint(LabelDetectorPainter oldDelegate) {
-//     return oldDelegate.imageSize != imageSize || oldDelegate.labels != labels;
-//   }
-// }
+  @override
+  bool shouldRepaint(LabelDetectorPainter oldDelegate) {
+    return oldDelegate.imageSize != imageSize || oldDelegate.labels != labels;
+  }
+}
 
 // Paints rectangles around all the text in the image.
 class TextDetectorPainter extends CustomPainter {
