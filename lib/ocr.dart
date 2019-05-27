@@ -103,14 +103,14 @@ class _OCRPageState extends State<OCRPage> {
         if (_scanResults is! List<Face>) return noResultsText;
         painter = FaceDetectorPainter(imageSize, _scanResults);
         break;
-      // case Detector.label:
-      //   if (_scanResults is! List<Label>) return noResultsText;
-      //   painter = LabelDetectorPainter(imageSize, _scanResults);
-      //   break;
-      // case Detector.cloudLabel:
-      //   if (_scanResults is! List<Label>) return noResultsText;
-      //   painter = LabelDetectorPainter(imageSize, _scanResults);
-      //   break;
+      case Detector.label:
+        if (_scanResults is! List<ImageLabel>) return noResultsText;
+        painter = LabelDetectorPainter(imageSize, _scanResults);
+        break;
+      case Detector.cloudLabel:
+        if (_scanResults is! List<ImageLabel>) return noResultsText;
+        painter = LabelDetectorPainter(imageSize, _scanResults);
+        break;
       default:
         assert(_currentDetector == Detector.text);
         if (_scanResults is! VisionText) return noResultsText;
@@ -141,6 +141,27 @@ class _OCRPageState extends State<OCRPage> {
               children: <Widget>[
                 CameraPreview(_camera),
                 _buildResults(),
+
+                Positioned(
+                  top: MediaQuery.of(context).size.height/2,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20.0,0,0,0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Color(0xFF2d3447).withOpacity(0.7),
+                      
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height/2,
+                    child: Text(_scanResults.text,
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontSize: 20.0,
+                             fontWeight: FontWeight.bold,
+                             ),
+                            ),
+                  ),
+                ),
               ],
             ),
     );
