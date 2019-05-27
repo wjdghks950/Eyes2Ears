@@ -224,7 +224,7 @@ class _MenuListState extends State<MenuList> {
                                                     print(products[index].name + ' pressed!');
                                                   }
                                                   else if(products[index].name.toLowerCase() == 'read'){
-                                                    Navigator.of(context).pushNamed('/read');
+                                                    Navigator.of(context).pushNamed('/ocr');
                                                     print(products[index].name + ' pressed!');
                                                   }
                                                   else if(products[index].name.toLowerCase() == 'hear'){
