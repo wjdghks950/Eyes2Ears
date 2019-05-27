@@ -40,11 +40,13 @@ dependencies:
   speech_recognition: ^0.3.0+1
   camera: ^0.5.2+1
   firebase_ml_vision: ^0.7.0
+  youtube_player: ^3.4.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  #flutter_youtube: ^1.0.1
 
 
 # For information on the generic Dart part of this file, see the
@@ -60,6 +62,17 @@ flutter:
   assets:
     - assets/startpage_people.jpg
     - assets/google-logo.png
+    - assets/banner.png
+    - assets/old.jpg
+    - assets/blackpanther.jpg
+    - assets/runaways.jpg
+    - assets/avengers.jpg
+    - assets/punisher.jpg
+    - assets/amy.jpg
+    - assets/delilah.jpg
+    - assets/lovesong.png
+    - assets/radio.png
+    - assets/beatles.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -92,5 +105,19 @@ flutter:
     - family: CustomIcons
       fonts:
         - asset: assets/custom_icons.ttf
+
+    - family: CustomFont
+      fonts:
+        - asset: assets/CustomFont.ttf
+
+    - family: Roboto
+      fonts:
+        - asset: assets/Roboto-Light.ttf
+
+    - family: back_icon
+      fonts:
+        - asset: assets/back_icon.ttf
+
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

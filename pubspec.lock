@@ -200,6 +200,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  share:
+    dependency: transitive
+    description:
+      name: share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.1+1"
   shrine_images:
     dependency: "direct main"
     description:
@@ -289,6 +296,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  youtube_player:
+    dependency: "direct main"
+    description:
+      name: youtube_player
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.1"
 sdks:
   dart: ">=2.2.0 <3.0.0"
   flutter: ">=1.2.0 <2.0.0"
