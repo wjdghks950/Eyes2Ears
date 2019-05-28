@@ -18,6 +18,7 @@ class AppPage extends StatelessWidget {
       home: MenuPage(),
       initialRoute: '/start',
       routes:{
+        '/appPage': (context) => AppPage(),
         '/start': (context) => StartPage(name: appName),
         '/login': (context) => LoginPage(),
         '/profile': (context) => ProfilePage(),

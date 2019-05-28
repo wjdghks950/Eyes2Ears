@@ -9,7 +9,7 @@ class AuthService{
   static FirebaseUser user;
   static FirebaseStorage storage;
   static DocumentSnapshot currentSnapshot;
-  static String defaultImgUrl = 'https://firebasestorage.googleapis.com/v0/b/mallapp-project.appspot.com/o/default_img.jpg?alt=media&token=64e2fd87-6655-421b-bfd4-bd247d197f6a';
+  static String defaultImgUrl = 'https://firebasestorage.googleapis.com/v0/b/eyes2ears-fff07.appspot.com/o/default_profile.png?alt=media&token=b6d36398-1309-42ff-bc21-eb559dec4493';
 
   AuthService();
 }
