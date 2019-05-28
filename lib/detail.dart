@@ -103,7 +103,7 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
                       highlightElevation: 10.0,
                       elevation:10.0,
                       onPressed: () {},
-                      color: Color(0xFF5A1B4D),
+                      color: Colors.white,
                       padding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 80.0),
                       child: Row(
@@ -111,7 +111,7 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
                           Text(
                             widget.product.name,
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Color(0xFF2d3447),
                                 fontSize: 20.0,
                                 fontFamily: "SF-Pro-Display-Bold"),
                           ),
