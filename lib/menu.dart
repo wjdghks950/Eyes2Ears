@@ -58,14 +58,19 @@ class _MenuPageState extends State<MenuPage> {
         width: 65.0,
         height: 65.0,
         decoration: BoxDecoration(
-            color: Color(0xFFfa7b58),
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                  color: Color(0xFFf78a6c).withOpacity(.6),
-                  offset: Offset(0.0, 10.0),
-                  blurRadius: 10.0)
-            ]),
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFa38a6a),
+              Color(0xFF735d3f)
+            ],
+          ),
+          color: Color(0xFFfa7b58),
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                offset: Offset(0.0, 3.0),
+                blurRadius: 10.0)
+          ]),
         child: RawMaterialButton(
           shape: CircleBorder(),
           child: Icon(
