@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:translator/translator.dart';
 
 import 'detector_painters.dart';
 import 'utils.dart';
@@ -14,6 +15,10 @@ class OCRPage extends StatefulWidget {
 class _OCRPageState extends State<OCRPage> {
   dynamic _scanResults;
   CameraController _camera;
+
+  bool _isTranslate = false;
+  final _translator = GoogleTranslator(); // Translator using Google Translator via translator.dart package
+  String _translation;
 
   Detector _currentDetector = Detector.text;
   bool _isDetecting = false;
@@ -76,6 +81,14 @@ class _OCRPageState extends State<OCRPage> {
         assert(_currentDetector == Detector.face);
         return mlVision.faceDetector().processImage;
     }
+  }
+  void _buildTranslation(String text){
+    _translator.translate(text, from: 'en', to: 'ko').then((s){
+      setState((){
+        _translation = s;
+      });
+    });
+    print('Translation: '+ _translation);
   }
 
   Widget _buildResults() {
@@ -143,23 +156,40 @@ class _OCRPageState extends State<OCRPage> {
                 _buildResults(),
 
                 Positioned(
-                  top: MediaQuery.of(context).size.height/2,
+                  top: MediaQuery.of(context).size.height/7.0,
+                  left: MediaQuery.of(context).size.width / 1.7,
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Color(0xFF2d3447).withOpacity(0.7),
+                    ),
+                    child: Text(_isTranslate ? "Translate: ON" : "Translate: Off",
+                              style: TextStyle(
+                                color: _isTranslate ? Colors.green : Colors.red,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              )),
+                  )
+                ),
+
+                Positioned(
+                  top: MediaQuery.of(context).size.height/2.0,
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(20.0,0,0,0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: Color(0xFF2d3447).withOpacity(0.7),
-                      
+                      color: Color(0xFF2d3447).withOpacity(0.7),                     
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height/2,
-                    child: Text(_scanResults.text,
+                    child: Text( !_isTranslate ? _scanResults.text : "default",//_translation,
                            style: TextStyle(
                              color: Colors.white,
                              fontSize: 20.0,
                              fontWeight: FontWeight.bold,
                              ),
-                            ),
+                          ),
                   ),
                 ),
               ],
@@ -228,12 +258,25 @@ class _OCRPageState extends State<OCRPage> {
       ),
       body: _buildImage(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        onPressed: _toggleCameraDirection,
-        child: _direction == CameraLensDirection.back
-            ? const Icon(Icons.camera_front, color: Color(0xFF2d3447))
-            : const Icon(Icons.camera_rear, color: Color(0xFF2d3447)),
+        backgroundColor:Colors.white,
+        onPressed: (){
+          if(!_isTranslate){
+            _isTranslate = true;
+            _buildTranslation(_scanResults.text);
+          }
+          else{
+            _isTranslate = false;
+          }
+        },
+        child: _isTranslate ? const Icon(Icons.cancel, color: Colors.red) : const Icon(Icons.translate, color: Colors.green),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.white,
+      //   onPressed: _toggleCameraDirection,
+      //   child: _direction == CameraLensDirection.back
+      //       ? const Icon(Icons.camera_front, color: Color(0xFF2d3447))
+      //       : const Icon(Icons.camera_rear, color: Color(0xFF2d3447)),
+      // ),
     );
   }
 }
