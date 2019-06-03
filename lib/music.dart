@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'customicon.dart';
-import 'package:flutter_youtube/flutter_youtube.dart';
+import 'package:youtube_player/youtube_player.dart';
 
 class MusicPage extends StatefulWidget {
+  var displayImg = "assets/old.jpg";
+  var youtubePage;
   @override
   _MusicPageState createState() => new _MusicPageState();
 }
@@ -11,40 +13,29 @@ class _MusicPageState extends State<MusicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[HomeScreeTopPart(), HomeScreenBottomPart()],
+    return Material(
+        color: Color(0xFF2d3447),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              HomeScreenTopPart(displayImg: widget.displayImg, youtubePage: widget.youtubePage,),
+              HomeScreenBottomPart(displayImg: widget.displayImg, youtubePage: widget.youtubePage,)],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFF4A148C)),
-              title: Text("Home", style: TextStyle(color: Color(0xFF4A148C)))),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-              ),
-              title: Text("Search", style: TextStyle())),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.bookmark_border,
-              ),
-              title: Text(
-                "Bookmark",
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), title: Text("Profile"))
-        ],
-      ),
     );
   }
 }
 
-class HomeScreeTopPart extends StatelessWidget {
+class HomeScreenTopPart extends StatefulWidget{
+  var displayImg;
+  var youtubePage;
+  HomeScreenTopPart({Key key, @required displayImg, @required youtubePage}) : super(key : key);
+
+  @override
+  _HomeScreenTopPartState createState() => _HomeScreenTopPartState();
+}
+
+class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -63,23 +54,11 @@ class HomeScreeTopPart extends StatelessWidget {
               ]),
               child: Stack(
                 children: <Widget>[
-                  Image.asset("assets/images/old.jpg",
+                  Image.asset("assets/old.jpg",
                       fit: BoxFit.cover, width: double.infinity),
                   Container(
                     height: double.infinity,
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [
-                              const Color(0x00000000),
-                              const Color(0xD9333333)
-                            ],
-                            stops: [
-                              0.0,
-                              0.9
-                            ],
-                            begin: FractionalOffset(0.0, 0.0),
-                            end: FractionalOffset(0.0, 1.0))),
                     child: Padding(
                       padding: EdgeInsets.only(top: 120.0, left: 95.0),
                     ),
@@ -100,7 +79,7 @@ class HomeScreeTopPart extends StatelessWidget {
                     onPressed: () {},
                     child: Icon(
                       Icons.add,
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFF2d3447),
                     ),
                   ),
                   SizedBox(
@@ -109,17 +88,19 @@ class HomeScreeTopPart extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30.0),
                     child: RaisedButton(
+                      elevation: 10.0,
+                      highlightElevation: 10.0,
                       onPressed: () {},
-                      color: Color(0xFF4A148C),
+                      color: Color(0xFFa38a6a),
                       padding: EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 80.0),
+                          vertical: 15.0, horizontal: 50.0),
                       child: Row(
                         children: <Widget>[
                           Text(
                             "Watch Now",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15.0,
+                                fontSize: 30.0,
                                 fontFamily: "SF-Pro-Display-Bold"),
                           ),
                           SizedBox(
@@ -137,7 +118,13 @@ class HomeScreeTopPart extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+            ),
+            backgroundColor: Colors.transparent,
+          ),
         ],
       ),
     );
@@ -145,44 +132,22 @@ class HomeScreeTopPart extends StatelessWidget {
 }
 
 class HomeScreenBottomPart extends StatefulWidget {
+  var displayImg;
+  var youtubePage;
+  HomeScreenBottomPart({Key key, @required displayImg, @required youtubePage}) : super(key : key);
+
   @override
   _HomeScreenBottomPartState createState() => new _HomeScreenBottomPartState();
 }
 
 class _HomeScreenBottomPartState extends State<HomeScreenBottomPart> {
 
-  @override
-  initState() {
-    super.initState();
-  }
-
-  void playYoutubeVideo() {
-    FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "<API_KEY>",
-      videoUrl: "https://youtu.be/BZpIQnPdsSQ",
-    );
-  }
-
-  void playYoutubeVideo2() {
-    FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "<API_KEY>",
-      videoUrl: "https://youtu.be/DNrK0yhrz0A",
-    );
-  }
-
-  void playYoutubeVideo3() {
-    FlutterYoutube.playYoutubeVideoByUrl(
-      apiKey: "<API_KEY>",
-      videoUrl: "https://youtu.be/woSCgIhRl9s",
-    );
-  }
-
   List<String> images = [
-    "assets/images/radio.png",
-    "assets/images/beatles.png",
-    "assets/images/lovesong.png"
+    "assets/radio.jpg",
+    "assets/beatles.png",
+    "assets/lovesong.png"
   ];
-
+  
   List<String> titles = ["Radio Hits", "Beatles Songs", "Love Songs"];
 
   List<Widget> movies() {
@@ -193,23 +158,34 @@ class _HomeScreenBottomPartState extends State<HomeScreenBottomPart> {
         onTap: (){
           setState(() {
             if(i==0){
-              playYoutubeVideo();
+              Navigator.pushNamed(context, '/video');
             }
             if(i==1){
-              playYoutubeVideo2();
+              widget.displayImg = images[1];
+              Navigator.pushNamed(context, '/video2');
             }
             if(i==2){
-              playYoutubeVideo3();
+              widget.displayImg = images[2];
+              Navigator.pushNamed(context, '/video3');
             }
+            print(widget.displayImg);
           });
 
         },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 12.0),
           child: Container(
-            height: 220.0,
-            width: 135.0,
+            height: 600.0,
+            width: 250.0,
             decoration: BoxDecoration(
+              image: DecorationImage(
+                image: 
+                  AssetImage(
+                    images[i],
+                  ),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
+              ),
                 borderRadius: BorderRadius.circular(20.0),
                 color: Colors.white,
                 boxShadow: [
@@ -217,44 +193,33 @@ class _HomeScreenBottomPartState extends State<HomeScreenBottomPart> {
                       color: Colors.black12,
                       blurRadius: 10.0,
                       offset: Offset(0.0, 10.0))
-                ]),
-            child: Column(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)),
-                  child: Image.asset(
-                    images[i],
-                    width: double.infinity,
-                    height: 130.0,
-                    fit: BoxFit.cover,
+                ],
+              ),
+            child: Stack(
+              children: [
+                Positioned.directional(
+                  textDirection: TextDirection.ltr,
+                    top: MediaQuery.of(context).size.height/6.0,
+                    width: MediaQuery.of(context).size.width/2.5,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Text(titles[i],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 33.0, 
+                            fontFamily: "SF-Pro-Display-Bold",
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                          ),
+                          overflow: TextOverflow.fade,
+                        ),
+                      ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
-                  child: Text(titles[i],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16.0, fontFamily: "SF-Pro-Display-Bold")),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 3.0),
-                  //child: Text(i == 0 ? "Amy Nuttall" : ""),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(i == 0 ? "" : ""),
-                      Text(i == 1 ? "" : ""),
-                      Text(i == 2 ? "" : ""),
-                    ],
-                  ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
       movieList.add(movieitem);
     }
     return movieList;
@@ -264,7 +229,7 @@ class _HomeScreenBottomPartState extends State<HomeScreenBottomPart> {
   Widget build(BuildContext context) {
     return new Container(
       height: 360.0,
-      margin: EdgeInsets.only(left: 65.0),
+      margin: EdgeInsets.only(left: 0.0),
       child: Column(
         children: <Widget>[
           Padding(
@@ -273,19 +238,16 @@ class _HomeScreenBottomPartState extends State<HomeScreenBottomPart> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Watch now",
+                  "Click to view more",
                   style: TextStyle(
-                      fontSize: 22.0, fontFamily: "SF-Pro-Display-Bold"),
+                    color: Colors.white,
+                    fontSize: 25.0, fontFamily: "SF-Pro-Display-Bold"),
                 ),
-                FlatButton(
-                  child: Text("View more"),
-                  onPressed: () {},
-                )
               ],
             ),
           ),
           Container(
-            height: 250.0,
+            height: MediaQuery.of(context).size.height/2.8,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: movies(),
