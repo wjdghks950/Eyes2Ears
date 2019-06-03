@@ -57,6 +57,8 @@ class TaskWidget extends StatelessWidget {
 }
 
 class TranscriptorWidget extends StatefulWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   _TranscriptorAppState createState() => new _TranscriptorAppState();
 }
@@ -101,6 +103,7 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
           width: size.width);
     }
     return Scaffold(
+      key: widget._scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
@@ -162,7 +165,10 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
 
   Future _copyTranscription() async {
     Clipboard.setData(ClipboardData(text: transcription));
-    print(Clipboard.getData('text/plain'));
+    Clipboard.getData('text/plain').then((content){
+      print(content.text);
+      widget._scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("[ " + content.text + " ]" + " is copied to your clipboard!")));
+    });
   }
 
   Future _platformCallHandler(MethodCall call) async {
