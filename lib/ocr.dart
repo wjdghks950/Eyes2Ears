@@ -53,8 +53,11 @@ class _OCRPageState extends State<OCRPage> {
         (dynamic result) {
           setState(() {
             _scanResults = result;
+            print("[ Detected ] : " + _scanResults.text);
+            if(_isTranslate){
+              _buildTranslation(_scanResults.text);
+            }
           });
-
           _isDetecting = false;
         },
       ).catchError(
@@ -82,13 +85,13 @@ class _OCRPageState extends State<OCRPage> {
         return mlVision.faceDetector().processImage;
     }
   }
-  void _buildTranslation(String text){
+  void _buildTranslation(String text) {
     _translator.translate(text, from: 'en', to: 'ko').then((s){
       setState((){
         _translation = s;
+        print('[ Translation ]:' + _translation);
       });
     });
-    print('Translation: '+ _translation);
   }
 
   Widget _buildResults() {
@@ -136,6 +139,7 @@ class _OCRPageState extends State<OCRPage> {
   }
 
   Widget _buildImage() {
+
     return Container(
       constraints: const BoxConstraints.expand(),
       child: _camera == null
@@ -156,7 +160,7 @@ class _OCRPageState extends State<OCRPage> {
                 _buildResults(),
 
                 Positioned(
-                  top: MediaQuery.of(context).size.height/7.0,
+                  top: MediaQuery.of(context).size.height / 7.0,
                   left: MediaQuery.of(context).size.width / 1.7,
                   child: Container(
                     padding: const EdgeInsets.all(10.0),
@@ -183,7 +187,7 @@ class _OCRPageState extends State<OCRPage> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height/2,
-                    child: Text( !_isTranslate ? _scanResults.text : "default",//_translation,
+                    child: Text( !_isTranslate ? _scanResults.text ?? ' ' : _translation ?? ' ',
                            style: TextStyle(
                              color: Colors.white,
                              fontSize: 20.0,
@@ -216,6 +220,7 @@ class _OCRPageState extends State<OCRPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF2d3447),
@@ -258,11 +263,11 @@ class _OCRPageState extends State<OCRPage> {
       ),
       body: _buildImage(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor:Colors.white,
+        backgroundColor: Colors.white,
         onPressed: (){
           if(!_isTranslate){
             _isTranslate = true;
-            _buildTranslation(_scanResults.text);
+            //_buildTranslation(_scanResults.text);
           }
           else{
             _isTranslate = false;
