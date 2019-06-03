@@ -25,7 +25,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Color(0xFF2d3447),
+      backgroundColor: Color(0xFF30363d),
       body: _pageList[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
@@ -60,8 +60,8 @@ class _MenuPageState extends State<MenuPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFa38a6a),
-              Color(0xFF735d3f)
+              Color(0xFFF27A54),
+              Color(0xFFA154F2)
             ],
           ),
           color: Color(0xFFfa7b58),

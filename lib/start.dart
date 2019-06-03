@@ -18,7 +18,7 @@ class StartPage extends StatelessWidget{
           Navigator.pushReplacementNamed(context, '/login');
         },
         child: Scaffold(
-          backgroundColor: Color(0xFF2d3447),
+          backgroundColor: Color(0xFF30363d),
           body: Stack(
             children: [
               Positioned.fill(

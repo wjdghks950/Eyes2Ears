@@ -52,7 +52,7 @@ class _MenuListState extends State<MenuList> {
 
   Widget _buildTitle(double height) {
     return Positioned(
-      top: height * .2,
+      top: height * .1,
       left: 30.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,27 +80,27 @@ class _MenuListState extends State<MenuList> {
     if(label == 'music'){
       icon = Icon(Icons.music_note, color: (index % 2 == 0)
                                               ? Colors.white
-                                              : Color(0xFF2a2d3f));
+                                              : Color(0xFF30363d), size: 50.0);
     }
     else if(label == 'hear'){
       icon = Icon(Icons.forum, color:(index % 2 == 0)
                                               ? Colors.white
-                                              : Color(0xFF2a2d3f));
+                                              : Color(0xFF2a2d3f), size: 50.0);
     }
     else if(label == 'read'){
       icon = Icon(Icons.center_focus_weak, color: (index % 2 == 0)
                                               ? Colors.white
-                                              : Color(0xFF2a2d3f));
+                                              : Color(0xFF2a2d3f), size: 50.0);
     }
     else if(label == 'news'){
       icon = Icon(Icons.fiber_new, color:(index % 2 == 0)
                                               ? Colors.white
-                                              : Color(0xFF2a2d3f));
+                                              : Color(0xFF2a2d3f), size: 50.0);
     }
     else{
       icon = Icon(Icons.bubble_chart, color:(index % 2 == 0)
                                               ? Colors.white
-                                              : Color(0xFF2a2d3f));
+                                              : Color(0xFF2a2d3f), size: 50.0);
     }
     return icon;
   }
@@ -117,12 +117,12 @@ class _MenuListState extends State<MenuList> {
           return Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              _buildAppBar(),
+              //_buildAppBar(),
               _buildTitle(height),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
-                  height: height * .6,
+                  height: height * .7,
                   child: StreamBuilder<QuerySnapshot>(
                     stream: Firestore.instance.collection('menulist').snapshots(),
                     builder: (context, snapshot){
@@ -138,7 +138,7 @@ class _MenuListState extends State<MenuList> {
                           return Padding(
                             padding: EdgeInsets.only(left: 35.0, bottom: 60.0),
                             child: SizedBox(
-                              width: 200.0,
+                              width: 250.0,
                               child: Stack(
                                 fit: StackFit.expand,
                                 children: <Widget>[
@@ -167,8 +167,8 @@ class _MenuListState extends State<MenuList> {
                                         child: Image.network(
                                           products[index].imgurl,
                                           fit: BoxFit.cover,
-                                          width: 172.5,
-                                          height: 199.0,
+                                          width: 220.0,
+                                          height: 220.0,
                                         ),
                                       ),
                                       SizedBox(
@@ -185,7 +185,7 @@ class _MenuListState extends State<MenuList> {
                                             ),
                                             Text(products[index].name,
                                                 style: TextStyle(
-                                                    fontSize: 40.0,
+                                                    fontSize: 60.0,
                                                     fontFamily: "Montserrat-Bold",
                                                     color: (index % 2 == 0)
                                                         ? Color(0xFF2a2d3f)
@@ -198,7 +198,7 @@ class _MenuListState extends State<MenuList> {
                                             ),
                                             Text(products[index].description,
                                                 style: TextStyle(
-                                                    fontSize: 15.0,
+                                                    fontSize: 20.0,
                                                     fontFamily: "Montserrat-Medium",
                                                     color: (index % 2 == 0)
                                                         ? Color(0xFF2a2d3f)
@@ -208,34 +208,38 @@ class _MenuListState extends State<MenuList> {
                                               height: 20.0,
                                             ),
                                             Center(
-                                              child: RaisedButton(
-                                                child: _buildButton(products[index].name, index),
-                                                splashColor: Color(0xFF5C6277),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(40.0),
+                                              child: ButtonTheme(
+                                                minWidth: 150.0,
+                                                height: 60.0,
+                                                child: RaisedButton(
+                                                  child: _buildButton(products[index].name, index),
+                                                  splashColor: Color(0xFF5C6277),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                  ),
+                                                  color: (index % 2 == 0)
+                                                    ? Color(0xFF2a2d3f)
+                                                    : Colors.white,
+                                                  onPressed: (){
+                                                    print(products[index].name + ' pressed!');
+                                                    if(products[index].name.toLowerCase() == 'news'){
+                                                      Navigator.of(context).pushNamed('/news');
+                                                      print(products[index].name + ' pressed!');
+                                                    }
+                                                    else if(products[index].name.toLowerCase() == 'read'){
+                                                      Navigator.of(context).pushNamed('/ocr');
+                                                      print(products[index].name + ' pressed!');
+                                                    }
+                                                    else if(products[index].name.toLowerCase() == 'hear'){
+                                                      Navigator.of(context).pushNamed('/speech');
+                                                      print(products[index].name + ' pressed!');
+                                                    }
+                                                    else if(products[index].name.toLowerCase() == 'music'){
+                                                      Navigator.of(context).pushNamed('/music');
+                                                      print(products[index].name + ' pressed!');
+                                                    }
+                                                  }
                                                 ),
-                                                color: (index % 2 == 0)
-                                                  ? Color(0xFF2a2d3f)
-                                                  : Colors.white,
-                                                onPressed: (){
-                                                  print(products[index].name + ' pressed!');
-                                                  if(products[index].name.toLowerCase() == 'news'){
-                                                    Navigator.of(context).pushNamed('/news');
-                                                    print(products[index].name + ' pressed!');
-                                                  }
-                                                  else if(products[index].name.toLowerCase() == 'read'){
-                                                    Navigator.of(context).pushNamed('/ocr');
-                                                    print(products[index].name + ' pressed!');
-                                                  }
-                                                  else if(products[index].name.toLowerCase() == 'hear'){
-                                                    Navigator.of(context).pushNamed('/speech');
-                                                    print(products[index].name + ' pressed!');
-                                                  }
-                                                  else if(products[index].name.toLowerCase() == 'music'){
-                                                    Navigator.of(context).pop();
-                                                    print(products[index].name + ' pressed!');
-                                                  }
-                                                }
                                               ),
                                             ),
                                           ],

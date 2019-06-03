@@ -110,11 +110,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2d3447),
+      backgroundColor: Color(0xFF30363d),
       body: Stack(
             children: <Widget>[
               Positioned.fill(
-                top: MediaQuery.of(context).size.height / 3.0,
+                top: MediaQuery.of(context).size.height / 5.0,
                 child: Column(
                   children: [
                     Icon(
@@ -134,16 +134,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(top: 500.0),
+                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 1.5),
                 child: Column(
                   children: <Widget>[
                     Material(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(20)
+                        Radius.circular(75)
                       ),
                       child: InkWell(
                         borderRadius: BorderRadius.all(
-                          Radius.circular(20)
+                          Radius.circular(75)
                         ),
                         onTap: (){
                           print("Google sign-in!");
@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: 
                         Container(
                           width: MediaQuery.of(context).size.width/1.2,
-                          height: 100,
+                          height: 75,
                           //margin: EdgeInsets.only(top: 32),
                           padding: EdgeInsets.only(
                               top: 4,left: 16, right: 16, bottom: 4
@@ -160,8 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Color(0xFFa38a6a),
-                                Color(0xFF735d3f)
+                                Color(0xFFF27A54),
+                                Color(0xFFA154F2)
                               ],
                             ),
                             boxShadow: [
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20)
+                              Radius.circular(75)
                             )
                           ),
                           child: Row(
@@ -183,12 +183,12 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(width: 20.0),
                               Center(
-                                child: Text('Google Sign-in',
+                                child: Text('Google Sign In',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 30.0,
-                                    fontFamily: "Calibre-Semibold",
+                                    fontSize: 27.0,
+                                    fontFamily: "Brandon_reg",
                                   ),
                                 ),
                               ),
@@ -197,27 +197,27 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 25.0),
                     Material(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(50)
+                        Radius.circular(75)
                       ),
                       child: InkWell(
                         borderRadius: BorderRadius.all(
-                          Radius.circular(50)
-                        ),                    
+                          Radius.circular(75)
+                        ),
                         onTap: (){
                           print("Login!");
                           _handleAnonymous().then((FirebaseUser user) => print(user)).catchError((e) => print(e));
                         },
                         child: Container(
-                          height: 100,
+                          height: 75,
                           width: MediaQuery.of(context).size.width/1.2,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Color(0xFFa38a6a),
-                                Color(0xFF735d3f)
+                                Color(0xFFF27A54),
+                                Color(0xFFA154F2)
                               ],
                             ),
                             boxShadow: [
@@ -227,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                             borderRadius: BorderRadius.all(
-                              Radius.circular(20)
+                              Radius.circular(75)
                             ),
                           ),
                           child: Row(
@@ -239,12 +239,12 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(width: 20.0),
                               Center(
-                                child: Text('Guest Login',
+                                child: Text('Guest Sign In',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 30.0,
-                                    fontFamily: "Calibre-Semibold",
+                                    fontSize: 27.0,
+                                    fontFamily: "Brandon_reg",
                                   ),
                                 ),
                               ),
