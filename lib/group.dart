@@ -14,23 +14,18 @@ class _GroupPageState extends State<GroupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF2d3447),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        child: Icon(Icons.add, color: Color(0xFF2d3447), size: 35.0),
+        onPressed: () async {
+          Navigator.pushNamed(context, '/addItem');
+        },
+      ),
       body: 
         NestedScrollView(
           headerSliverBuilder : (context, innerBoxIsScrolled){
             return [
               SliverAppBar(
-                actions: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
-                    child: IconButton(
-                      icon: Icon(Icons.add),
-                      iconSize: 30.0,
-                      onPressed: (){
-                        print("Add pressed!");
-                      },
-                    )
-                  ),
-                ],
                 backgroundColor: Color.fromRGBO(0,0,0,0),
                 expandedHeight: 500.0,
                 floating: true,
@@ -38,13 +33,17 @@ class _GroupPageState extends State<GroupPage> {
                 flexibleSpace: FlexibleSpaceBar(
                   title: Row( 
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text(
-                    "Group",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    ),
-                  ),]
+                    children: [
+                      Text(
+                        "Friends and Family",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontFamily: 'SF-Pro-Text-Bold',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                   background: _imageUrl == null ? Image.asset(_defaultUrl, fit: BoxFit.cover) :Image.network(_imageUrl , fit: BoxFit.cover),
                 ),
@@ -65,7 +64,7 @@ class _GroupPageState extends State<GroupPage> {
                         crossAxisCount: 2,
                         shrinkWrap: true,
                         padding: EdgeInsets.all(16.0),
-                        childAspectRatio: 8.0 / 9.0,
+                        childAspectRatio: 8.0 / 10.0,
                         children: _buildGridCards(context, products),
                       );
                     },
@@ -93,6 +92,7 @@ class _GroupPageState extends State<GroupPage> {
           print(product.name);
         },
         child: Card(
+          color: Colors.black.withOpacity(0.2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -103,72 +103,59 @@ class _GroupPageState extends State<GroupPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               AspectRatio(
-                aspectRatio: 18 / 12,
+                aspectRatio: 18 / 15,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.0),
                   child: Image.network(
                     product.imgurl,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(25.0, 5.0, 16.0, 0.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height:10.0),
-                    Text(
-                      product == null ? '' : product.name,
-                      style: TextStyle(
-                        color: Color(0xFF5C6277),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines:1,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(30.0, 8.0, 0.0, 0.0),
+              Container(
+                padding: const EdgeInsets.fromLTRB(22.0, 10.0, 16.0, 0.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
                     Flexible(
-                      child:Text(
-                        product == null ? '' : product.phoneNum.toString(),
-                        style: TextStyle(fontSize:12.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end, 
-                children: [
-                  SizedBox(
-                    width: 60.0,
-                    height: 20.0,
-                    child: FlatButton(
-                        child: Text('more',
+                      child: Container(
+                        padding: EdgeInsets.only(right: 10.0),
+                        child: Text(
+                          product == null ? '' : product.name,
                           style: TextStyle(
-                            fontFamily:'Rubik',
-                            fontSize: 10.0,
-                            color: Colors.blue[400],
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'SF-Pro-Text-Bold'
                           ),
                         ),
-                        onPressed: () async{ 
-                          AuthService.currentSnapshot = await Firestore.instance.collection('friends').document(product.docID).get();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(product: product)));
-                        } // Product's index
                       ),
                     ),
-                ],
-              ),
+                    ButtonTheme(
+                      minWidth: 40.0,
+                      height: 50.0,
+                      buttonColor: Color(0xFF735d3f),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Icon(Icons.arrow_forward, color: Colors.white),
+                        onPressed: () async {
+                          AuthService.currentSnapshot = await Firestore.instance.collection('friends').document(product.docID).get();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(product: product)));
+                        }
+                      ),
+                    ),
+                    // IconButton(
+                    //   icon: Icon(Icons.add_circle, color: Colors.white),
+                    //   onPressed: () async{
+                    //     AuthService.currentSnapshot = await Firestore.instance.collection('friends').document(product.docID).get();
+                    //     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(product: product)));
+                    //   }
+                    // )
+                  ],
+                )
+              )
             ],
           ),
       ),
