@@ -160,6 +160,11 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
     setState(() => authorized = res);
   }
 
+  Future _copyTranscription() async {
+    Clipboard.setData(ClipboardData(text: transcription));
+    print(Clipboard.getData('text/plain'));
+  }
+
   Future _platformCallHandler(MethodCall call) async {
     switch (call.method) {
       case "onSpeechAvailability":
@@ -199,6 +204,7 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
           color: Colors.white,
           backgroundColor: Colors.blueGrey,
           fab: true),
+      _buildIconButton(Icons.content_copy, _copyTranscription , fab: false),
     ];
     Row buttonBar = new Row(mainAxisSize: MainAxisSize.min, children: buttons);
     return buttonBar;
@@ -206,15 +212,15 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
 
   Widget _buildTranscriptionBox(
       {String text, VoidCallback onCancel, double width}) =>
-      new Container(
+      Container(
           width: width,
           height: MediaQuery.of(context).size.height/1.3,
           color: Color(0xFF2d3447),
-          child: new Row(children: [
-            new Expanded(
-                child: new Padding(
-                    padding: new EdgeInsets.all(8.0),
-                    child: new Text(text, style: new TextStyle(fontSize: 50.0, color: Colors.white),),
+          child: Row(children: [
+            Expanded(
+                child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(text, style: TextStyle(fontSize: 50.0, color: Colors.white),),
                 )),
             // new IconButton(
             //     icon: new Icon(Icons.close, color: Colors.grey.shade600),
@@ -222,22 +228,38 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
           ]));
 
   Widget _buildIconButton(IconData icon, VoidCallback onPress,
-      {Color color: Colors.grey,
+      {
+        Color color: Colors.grey,
         Color backgroundColor: Colors.black,
         bool fab = false}) {
-    return new Padding(
-      padding: new EdgeInsets.all(12.0),
+    return Padding(
+      padding: EdgeInsets.all(12.0),
       child: fab
-          ? new FloatingActionButton(
+          ? FloatingActionButton(
             elevation: 20.0,
             shape: RoundedRectangleBorder(side: BorderSide(style: BorderStyle.none), borderRadius: BorderRadius.circular(30.0)),
-            child: new Icon(icon, size: 45.0),
+            child: Icon(icon, size: 45.0),
             onPressed: onPress,
-            backgroundColor: Color(0xFF735d3f))
-            : new IconButton(
-            icon: new Icon(icon, size: 45.0),
-            color: Color(0xFF735d3f),
-            onPressed: onPress),
+            backgroundColor: Color(0xFFA154F2))
+            : RaisedButton(
+              shape: RoundedRectangleBorder(side: BorderSide(style: BorderStyle.none), borderRadius: BorderRadius.circular(30.0)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(icon, size: 45.0, color: Colors.white),
+                  Text('COPY', 
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                      fontFamily: 'Brandon_reg',
+                      fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ]
+              ),
+              color: Color(0xFFA154F2),
+              onPressed: onPress
+            ),
       );
   }
 }
