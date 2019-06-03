@@ -7,7 +7,10 @@ import 'menuList.dart';
 import 'detail.dart';
 import 'ocr.dart';
 import 'speech.dart';
-// import 'music.dart';
+import 'addfriend.dart';
+import 'music.dart';
+import 'video_detail.dart';
+import 'group.dart';
 
 class AppPage extends StatelessWidget {
   final appName = 'Eyes2Ears';
@@ -23,10 +26,15 @@ class AppPage extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/profile': (context) => ProfilePage(),
         '/menu':(context) => MenuList(),
+        '/group': (context) => GroupPage(),
         '/detail': (context) => DetailPage(),
         '/ocr': (context) => OCRPage(),
         '/speech': (context) => TranscriptorWidget(),
-        // '/music' : (context) => MusicPage(),
+        '/addItem': (context) => AddItem(),
+        '/music' : (context) => MusicPage(),
+        '/video' : (context) => VideoDetail(),
+        '/video2' : (context) => VideoDetail2(),
+        '/video3' : (context) => VideoDetail3(),
       },
       onGenerateRoute: _getRoute,
     );
