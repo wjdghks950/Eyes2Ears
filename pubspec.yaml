@@ -32,6 +32,7 @@ dependencies:
   firebase_ml_vision: ^0.7.0
   youtube_player: ^3.4.1
   flutter_launcher_icons: ^0.7.2
+  translator: ^0.1.1
 
 
 dev_dependencies:
@@ -93,6 +94,32 @@ flutter:
       fonts:
         - asset: assets/back_icon.ttf
 
+    - family: Brandon_bld
+      fonts:
+        - asset: assets/Brandon_bld.otf
 
+    - family: Brandon_blk
+      fonts:
+        - asset: assets/Brandon_blk.otf
+
+    - family: Brandon_med
+      fonts:
+        - asset: assets/Brandon_med.otf
+
+    - family: Brandon_reg
+      fonts:
+        - asset: assets/Brandon_reg.otf
+
+    - family: Brandon_reg
+      fonts:
+        - asset: assets/Brandon_reg_it.otf
+
+    - family: Montserrat-Light
+      fonts:
+        - asset: assets/Montserrat-Light.ttf
+
+    - family: Montserrat-Black
+      fonts:
+        - asset: assets/Montserrat-Black.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
