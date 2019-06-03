@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'recognizer.dart';
 
-
 class Task {
   int taskId;
   String label;
@@ -23,7 +22,8 @@ class TaskWidget extends StatelessWidget {
   TaskWidget({this.label, this.onDelete, this.onComplete});
 
   Widget _buildDissmissibleBackground(
-      {Color color,
+      {
+        Color color,
         IconData icon,
         FractionalOffset align = FractionalOffset.centerLeft}) =>
       new Container(
@@ -91,29 +91,35 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    List<Widget> blocks = [
-      new Expanded(
-          flex: 2,
-          child: new ListView(
-              children: incompleteTasks
-                  .map((t) => _buildTaskWidgets(
-                  task: t,
-                  onDelete: () => _deleteTaskHandler(t),
-                  onComplete: () => _completeTaskHandler(t)))
-                  .toList())),
-      _buildButtonBar(),
-    ];
-    if (isListening || transcription != '')
-      blocks.insert(
-          1,
-          _buildTranscriptionBox(
-              text: transcription,
-              onCancel: _cancelRecognitionHandler,
-              width: size.width - 20.0));
-    return new Scaffold(
-      body: Center(
-          child: new Column(mainAxisSize: MainAxisSize.min, children: blocks)),
+    // List<Widget> blocks = [
+    //   _buildButtonBar(),
+    // ];
+    if (isListening || transcription != ''){
+      _buildTranscriptionBox(
+          text: transcription,
+          onCancel: _cancelRecognitionHandler,
+          width: size.width);
+    }
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: Color(0xFF2d3447),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          children: [
+                  isListening ? _buildTranscriptionBox(
+                    text: transcription,
+                    onCancel: _cancelRecognitionHandler,
+                    width: size.width) : _buildTranscriptionBox(
+                    text: "Press the mic to listen...",
+                    onCancel: _cancelRecognitionHandler,
+                    width: size.width),
+                  _buildButtonBar(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -183,30 +189,15 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
     }
   }
 
-  void _deleteTaskHandler(Task t) {
-    setState(() {
-      todos.remove(t);
-      _showStatus("cancelled");
-    });
-  }
-
-  void _completeTaskHandler(Task completed) {
-    setState(() {
-      todos =
-          todos.map((t) => completed == t ? (t..complete = true) : t).toList();
-      _showStatus("completed");
-    });
-  }
-
   Widget _buildButtonBar() {
     List<Widget> buttons = [
       !isListening
           ? _buildIconButton(authorized ? Icons.mic : Icons.mic_off,
           authorized ? _startRecognition : null,
           color: Colors.white, fab: true)
-          : _buildIconButton(Icons.add, isListening ? _saveTranscription : null,
+          : _buildIconButton(Icons.close, isListening ? _cancelRecognitionHandler : null,
           color: Colors.white,
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.blueGrey,
           fab: true),
     ];
     Row buttonBar = new Row(mainAxisSize: MainAxisSize.min, children: buttons);
@@ -217,43 +208,36 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
       {String text, VoidCallback onCancel, double width}) =>
       new Container(
           width: width,
-          color: Colors.grey.shade200,
+          height: MediaQuery.of(context).size.height/1.3,
+          color: Color(0xFF2d3447),
           child: new Row(children: [
             new Expanded(
                 child: new Padding(
-                    padding: new EdgeInsets.all(8.0), child: new Text(text))),
-            new IconButton(
-                icon: new Icon(Icons.close, color: Colors.grey.shade600),
-                onPressed: text != '' ? () => onCancel() : null),
+                    padding: new EdgeInsets.all(8.0),
+                    child: new Text(text, style: new TextStyle(fontSize: 50.0, color: Colors.white),),
+                )),
+            // new IconButton(
+            //     icon: new Icon(Icons.close, color: Colors.grey.shade600),
+            //     onPressed: text != '' ? () => onCancel() : null),
           ]));
 
   Widget _buildIconButton(IconData icon, VoidCallback onPress,
       {Color color: Colors.grey,
-        Color backgroundColor: Colors.deepPurple,
+        Color backgroundColor: Colors.black,
         bool fab = false}) {
     return new Padding(
       padding: new EdgeInsets.all(12.0),
       child: fab
           ? new FloatingActionButton(
-          child: new Icon(icon),
-          onPressed: onPress,
-          backgroundColor: backgroundColor)
-          : new IconButton(
-          icon: new Icon(icon, size: 32.0),
-          color: color,
-          onPressed: onPress),
-    );
-  }
-
-  Widget _buildTaskWidgets(
-      {Task task, VoidCallback onDelete, VoidCallback onComplete}) {
-    return new TaskWidget(
-        label: task.label, onDelete: onDelete, onComplete: onComplete);
-  }
-
-  void _showStatus(String action) {
-    final label = "Task $action : ${incompleteTasks.length} left "
-        "/ ${numArchived} archived";
-    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text(label)));
+            elevation: 20.0,
+            shape: RoundedRectangleBorder(side: BorderSide(style: BorderStyle.none), borderRadius: BorderRadius.circular(30.0)),
+            child: new Icon(icon, size: 45.0),
+            onPressed: onPress,
+            backgroundColor: Color(0xFF735d3f))
+            : new IconButton(
+            icon: new Icon(icon, size: 45.0),
+            color: Color(0xFF735d3f),
+            onPressed: onPress),
+      );
   }
 }
