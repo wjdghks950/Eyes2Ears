@@ -167,7 +167,8 @@ class _TranscriptorAppState extends State<TranscriptorWidget> {
     Clipboard.setData(ClipboardData(text: transcription));
     Clipboard.getData('text/plain').then((content){
       print(content.text);
-      widget._scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("[ " + content.text + " ]" + " is copied to your clipboard!")));
+      widget._scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("[ " + content.text + " ]" + " is copied to your clipboard!",
+                                                                          style: TextStyle(fontWeight: FontWeight.bold,))));
     });
   }
 
