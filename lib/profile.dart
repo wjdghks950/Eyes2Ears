@@ -38,8 +38,8 @@ class _ProfileState extends State<ProfilePage>{
                         image: DecorationImage(
                             image: NetworkImage(
                                 AuthService.user.isAnonymous ? AuthService.defaultImgUrl : AuthService.user.photoUrl),
-                            fit: BoxFit.cover),
-                        borderRadius: BorderRadius.all(Radius.circular(75.0)),
+                            fit: BoxFit.contain),
+                        borderRadius: BorderRadius.all(Radius.circular(100.0)),
                         boxShadow: [
                           BoxShadow(blurRadius: 7.0, color: Colors.black)
                         ],
@@ -55,7 +55,7 @@ class _ProfileState extends State<ProfilePage>{
                 ),
                 SizedBox(height: 15.0),
                 Text(
-                  AuthService.user.email,
+                  AuthService.user.isAnonymous ? '' : AuthService.user.email,
                   style: TextStyle(
                       fontSize: 20.0,
                       fontStyle: FontStyle.italic,
@@ -82,7 +82,7 @@ class _ProfileState extends State<ProfilePage>{
                     onPressed: (){
                       // TODO: image picker
                     },
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(75.0))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     color: Colors.green
                   ),
                 ),
@@ -108,7 +108,7 @@ class _ProfileState extends State<ProfilePage>{
                       _signout();
                       Navigator.of(context).pushNamedAndRemoveUntil('/appPage', (Route<dynamic> route) => false);
                     },
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(75.0))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     color: Colors.red,
                   ),
                 ),
