@@ -31,11 +31,20 @@ dependencies:
   camera: ^0.5.2+1
   firebase_ml_vision: ^0.7.0
   youtube_player: ^3.4.1
+  flutter_launcher_icons: ^0.7.2
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+  adaptive_icon_background: "assets/launcher/background.png"
+  adaptive_icon_foreground: "assets/launcher/foreground.png"
 
 flutter:
   uses-material-design: true
@@ -51,8 +60,9 @@ flutter:
     - assets/amy.jpg
     - assets/delilah.jpg
     - assets/lovesong.png
-    - assets/radio.png
+    - assets/radio.jpg
     - assets/beatles.png
+    - assets/start_icon.png
 
   fonts:
     - family: SF-Pro-Text-Regular
