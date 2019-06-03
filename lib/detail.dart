@@ -17,17 +17,14 @@ class _DetailState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
-      backgroundColor: Color(0xFF2d3447),
-      body: SingleChildScrollView(
+    return Material(
+      color: Color(0xFF2d3447),
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             DetailScreenTopPart(product: this.product),
             DetailScreenInfo(product: this.product),
-            /*DetailScreenBottomPart(this.product)*/],
+          ],
         ),
       ),
     );
@@ -65,7 +62,7 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
               child: Stack(
                 children: <Widget>[
                   Image.network(widget.product.imgurl,
-                      fit: BoxFit.fill, width: double.infinity),
+                      fit: BoxFit.cover, width: double.infinity),
                 ],
               ),
             ),
@@ -103,7 +100,7 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
                       highlightElevation: 10.0,
                       elevation:10.0,
                       onPressed: () {},
-                      color: Colors.white,
+                      color: Color(0xFF735d3f).withOpacity(0.9),// Color(0xFF735d3f),
                       padding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 80.0),
                       child: Row(
@@ -111,8 +108,8 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
                           Text(
                             widget.product.name,
                             style: TextStyle(
-                                color: Color(0xFF2d3447),
-                                fontSize: 20.0,
+                                color: Colors.white,
+                                fontSize: 25.0,
                                 fontFamily: "SF-Pro-Display-Bold"),
                           ),
                           SizedBox(
@@ -125,7 +122,13 @@ class _DetailScreenTopPartState extends State<DetailScreenTopPart> {
                 ],
               ),
             ),
-          )
+          ),
+          Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+            ),
+            backgroundColor: Colors.transparent,
+          ),
         ],
       ),
     );
@@ -230,9 +233,7 @@ class DetailScreenBottomPart extends StatelessWidget {
                     topRight: Radius.circular(20.0)),
                 child: Image.asset(
                   images[i],
-                  width: double.infinity,
-                  height: 130.0,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
               Padding(
