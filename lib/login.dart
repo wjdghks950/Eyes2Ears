@@ -110,14 +110,26 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF2d3447),
       body: Stack(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/startpage_people.jpg"), 
-                    fit: BoxFit.cover,
-                  ),
+              Positioned.fill(
+                top: MediaQuery.of(context).size.height / 3.0,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.all_inclusive,
+                      color: Colors.white,
+                      size: MediaQuery.of(context).size.width / 10.0),
+                    //SizedBox(height: MediaQuery.of(context).size.height / 10.0),
+                    Text("Eyes2Ears",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'SF-Pro-Text-Bold',
+                        fontSize: MediaQuery.of(context).size.width / 10.0,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -148,8 +160,8 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.purple,
-                                Colors.purpleAccent,
+                                Color(0xFFa38a6a),
+                                Color(0xFF735d3f)
                               ],
                             ),
                             boxShadow: [
@@ -204,8 +216,8 @@ class _LoginPageState extends State<LoginPage> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Color(0xFF1b1e44),
-                                Color(0xFF2d3447),
+                                Color(0xFFa38a6a),
+                                Color(0xFF735d3f)
                               ],
                             ),
                             boxShadow: [
@@ -227,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(width: 20.0),
                               Center(
-                                child: Text('Login'.toUpperCase(),
+                                child: Text('Guest Login',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
